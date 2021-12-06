@@ -15,13 +15,8 @@ public class ProductController {
     @Autowired
     IProductService productService;
 
-    @RequestMapping(path = "/product-stream", method = RequestMethod.GET)
-    public Mono<Product> getAllProduct(){
-        return null;
-    }
-
-    @RequestMapping(path = "/product/{productId}",method = RequestMethod.GET)
-    public Mono<Product> getProduct(@PathVariable("productId") int productId){
+    @RequestMapping(path = "/product/{productId}", method = RequestMethod.GET)
+    public Mono<Product> getProduct(@PathVariable("productId") int productId) {
         return productService.getProduct(productId);
     }
 }
