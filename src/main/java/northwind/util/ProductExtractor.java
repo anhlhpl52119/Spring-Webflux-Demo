@@ -8,27 +8,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
 import northwind.model.Product;
-/*
-{
-	"value": [
-	{
-	"ProductID": 1,
-	"ProductName": "Chai",
-	"SupplierID": 1,
-	"CategoryID": 1,
-	"QuantityPerUnit": "10 boxes x 20 bags",
-	"UnitPrice": "18.0000",
-	"UnitsInStock": 39,
-	"UnitsOnOrder": 0,
-	"ReorderLevel": 10,
-	"Discontinued": false
-	}
-	]
-}
-*/
+
 public class ProductExtractor {
 
-	public static Product extractProduct(String jsonString)  {
+	public static Product extractProduct(String jsonString) {
 		JsonNode parent;
 		try {
 			parent = new ObjectMapper().readTree(jsonString);
@@ -36,7 +19,7 @@ public class ProductExtractor {
 			if (productsNode instanceof ArrayNode) {
 				ArrayNode products = (ArrayNode) productsNode;
 				Product product = StreamSupport.stream(products.spliterator(), false).map((node) -> {
-					Product  p = new Product();
+					Product p = new Product();
 					p.setId(node.get("ProductID").asInt());
 					p.setName(node.get("ProductName").asText());
 					p.setDiscontinued(node.get("Discontinued").asBoolean());

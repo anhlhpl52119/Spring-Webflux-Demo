@@ -20,6 +20,4 @@ public class OrderIdsCache {
         this.orderIds = orderIds;
     }
 
-    
-
 }

@@ -12,17 +12,8 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import northwind.model.OrderItems;
 import northwind.model.Product;
 
-/*
-{
-"OrderID": 10248,
-"ProductID": 11,
-"UnitPrice": "14.0000",
-"Quantity": 12,
-"Discount": 0
-}
-*/
 public class OrderItemExtractor {
-	public static List<OrderItems> extractOrderItems(String jsonString)  {
+	public static List<OrderItems> extractOrderItems(String jsonString) {
 		JsonNode parent;
 		try {
 			parent = new ObjectMapper().readTree(jsonString);
@@ -30,7 +21,7 @@ public class OrderItemExtractor {
 			if (arrayNode instanceof ArrayNode) {
 				ArrayNode orderItemsNode = (ArrayNode) arrayNode;
 				List<OrderItems> orderItems = StreamSupport.stream(orderItemsNode.spliterator(), false).map((node) -> {
-					OrderItems  oi = new OrderItems();
+					OrderItems oi = new OrderItems();
 					oi.setOrderId(node.get("OrderID").asInt());
 					Product p = new Product();
 					p.setId(node.get("ProductID").asInt());

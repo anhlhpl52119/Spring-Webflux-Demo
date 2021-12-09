@@ -10,7 +10,6 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import northwind.model.Address;
 import northwind.model.Customer;
 
-
 public class CustomerExtractor {
 
 	public static Customer extractCustomer(String jsonString) {
@@ -24,7 +23,7 @@ public class CustomerExtractor {
 					String[] nameParts = customerNode.get("ContactName").asText().split(" ");
 					Customer c = new Customer();
 					c.setFirstName(nameParts[0]);
-					c.setLastName(nameParts[nameParts.length-1]);
+					c.setLastName(nameParts[nameParts.length - 1]);
 					c.setId(customerNode.get("CustomerID").asText());
 					c.setAddress(extractCustomerAddress(customerNode));
 					return c;
@@ -36,7 +35,7 @@ public class CustomerExtractor {
 		}
 		return null;
 	}
-	
+
 	public static Address extractCustomerAddress(JsonNode addressNode) {
 		Address address = new Address();
 		address.setAddress(addressNode.get("Address").asText());

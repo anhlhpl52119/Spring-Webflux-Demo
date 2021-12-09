@@ -14,26 +14,8 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import northwind.model.Address;
 import northwind.model.Order;
 
-/*
-{
-"OrderID": 10248,
-"CustomerID": "VINET",
-"EmployeeID": 5,
-"OrderDate": "1996-07-04T00:00:00",
-"RequiredDate": "1996-08-01T00:00:00",
-"ShippedDate": "1996-07-16T00:00:00",
-"ShipVia": 3,
-"Freight": "32.3800",
-"ShipName": "Vins et alcools Chevalier",
-"ShipAddress": "59 rue de l'Abbaye",
-"ShipCity": "Reims",
-"ShipRegion": null,
-"ShipPostalCode": "51100",
-"ShipCountry": "France"
-}
-*/
 public class OrderExtractor {
-	
+
 	public static Order extractOrder(String jsonString) {
 		JsonNode parent;
 		try {
@@ -74,7 +56,7 @@ public class OrderExtractor {
 		return LocalDateTime.parse(dateStr, formatter);
 	}
 
-	public static List<Integer> extractOrderIds(String jsonString){
+	public static List<Integer> extractOrderIds(String jsonString) {
 		JsonNode parent;
 		try {
 			parent = new ObjectMapper().readTree(jsonString);

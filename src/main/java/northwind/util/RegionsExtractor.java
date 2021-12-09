@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import northwind.model.Regions;
 
 public class RegionsExtractor {
-    public static Regions extractRegions(String jsonString) {
+	public static Regions extractRegions(String jsonString) {
 		JsonNode parent;
 		try {
 			parent = new ObjectMapper().readTree(jsonString);
@@ -31,8 +31,7 @@ public class RegionsExtractor {
 		return null;
 	}
 
-	//List
-	public static List<Integer> extractRegionsIds(String jsonString){
+	public static List<Integer> extractRegionsIds(String jsonString) {
 		JsonNode parent;
 		try {
 			parent = new ObjectMapper().readTree(jsonString);

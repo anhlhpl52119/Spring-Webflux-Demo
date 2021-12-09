@@ -10,7 +10,7 @@ public class ColorConsolePrinter {
 	private static final ColoredPrinter cp ;
 	static {
 		 cp = new ColoredPrinter.Builder(1, false)
-                .foreground(FColor.WHITE).background(BColor.BLUE)   //setting format
+                .foreground(FColor.WHITE).background(BColor.BLUE)
                 .build();	
 	}
 	
