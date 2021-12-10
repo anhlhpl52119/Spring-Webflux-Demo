@@ -33,13 +33,13 @@ public class OrderService implements IOrderService {
 
 	@Autowired
 	Scheduler schedular;
-	
+
 	@Autowired
 	ReactiveHttpClient httpClient;
-	
+
 	@Autowired
-	IProductService productService ;
-	
+	IProductService productService;
+
 	@Autowired
 	ICustomerService customerService;
 
@@ -51,9 +51,10 @@ public class OrderService implements IOrderService {
 		Map<String, String> headers = new HashMap<>();
 		Map<String, String> queryParams = new HashMap<>();
 		queryParams.put("$select", "OrderID");
-		return Mono.create((emitter)->{
+		return Mono.create((emitter) -> {
 			try {
-				Mono<ClientResponse> response = httpClient.request(NorthwindUtil.URL,"Orders", HttpMethod.GET, headers, queryParams, null);
+				Mono<ClientResponse> response = httpClient.request(NorthwindUtil.URL, "Orders", HttpMethod.GET, headers,
+						queryParams, null);
 				response.subscribeOn(schedular);
 				response.subscribe((ClientResponse clientResponse) -> {
 					clientResponse.bodyToMono(String.class).subscribe((json) -> {
@@ -62,7 +63,7 @@ public class OrderService implements IOrderService {
 					});
 
 				});
-			}catch (CoreException e) {
+			} catch (CoreException e) {
 				e.printStackTrace();
 				emitter.error(e);
 			}
@@ -74,39 +75,39 @@ public class OrderService implements IOrderService {
 
 		Map<String, String> headers = new HashMap<>();
 		Map<String, String> queryParams = new HashMap<>();
-		queryParams.put("$filter", "OrderID eq "+orderID);
+		queryParams.put("$filter", "OrderID eq " + orderID);
 
-		return Mono.create((emitter)->{
-		try {
-			Mono<List<OrderItems>> oiMono = orderItemsSvc.getOrderItems(orderID);
-			Mono<ClientResponse> response = httpClient.request(NorthwindUtil.URL,"Orders", HttpMethod.GET, headers, queryParams,null);
-			System.out.println("Non blocking");
-			response.subscribeOn(schedular);
-			response.subscribe((ClientResponse clientResponse)->{
-				clientResponse.bodyToMono(String.class).subscribe((json) -> {
-					Mono<Customer> customerMono = customerService.getCustomer(extractCustomerID(json));
+		return Mono.create((emitter) -> {
+			try {
+				Mono<List<OrderItems>> oiMono = orderItemsSvc.getOrderItems(orderID);
+				Mono<ClientResponse> response = httpClient.request(NorthwindUtil.URL, "Orders", HttpMethod.GET, headers,
+						queryParams, null);
+				System.out.println("Non blocking");
+				response.subscribeOn(schedular);
+				response.subscribe((ClientResponse clientResponse) -> {
+					clientResponse.bodyToMono(String.class).subscribe((json) -> {
+						Mono<Customer> customerMono = customerService.getCustomer(extractCustomerID(json));
 
-					Order order = OrderExtractor.extractOrder(json);
-					Mono<Tuple2<Customer,List<OrderItems>>> tuple = Mono.zip(customerMono,oiMono);
-					tuple.subscribe((t)->{
-						Customer customer = t.getT1();
-						List<OrderItems> orderItems =t.getT2();
-						order.setCustomer(customer);
-						order.setOrderItems(orderItems);
-						emitter.success(order);
+						Order order = OrderExtractor.extractOrder(json);
+						Mono<Tuple2<Customer, List<OrderItems>>> tuple = Mono.zip(customerMono, oiMono);
+						tuple.subscribe((t) -> {
+							Customer customer = t.getT1();
+							List<OrderItems> orderItems = t.getT2();
+							order.setCustomer(customer);
+							order.setOrderItems(orderItems);
+							emitter.success(order);
+						});
+
 					});
 
 				});
-
-			});
-		} catch (CoreException e) {
-			e.printStackTrace();
-			emitter.error(e);
-		}
+			} catch (CoreException e) {
+				e.printStackTrace();
+				emitter.error(e);
+			}
 		});
 
 	}
-
 
 	private String extractCustomerID(String jsonString) {
 		JsonNode parent;
@@ -124,6 +125,5 @@ public class OrderService implements IOrderService {
 		}
 		return null;
 	}
-
 
 }
