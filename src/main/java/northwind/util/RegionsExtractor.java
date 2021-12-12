@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import java.util.stream.Collectors;
 import northwind.model.Regions;
 
+
 public class RegionsExtractor {
 	public static Regions extractRegions(String jsonString) {
 		JsonNode parent;
