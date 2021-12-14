@@ -10,6 +10,7 @@ import reactor.core.publisher.Flux;
 @Component
 public class ReactiveSSEClient {
 
+    
     public Flux<ServerSentEvent<Order>> getServerSentOrders() {
         WebClient client = WebClient.create("http://localhost:8080/");
         ParameterizedTypeReference<ServerSentEvent<Order>> type = new ParameterizedTypeReference<ServerSentEvent<Order>>() {
