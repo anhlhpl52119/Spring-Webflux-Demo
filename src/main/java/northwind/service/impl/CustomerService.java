@@ -42,6 +42,7 @@ public class CustomerService implements ICustomerService {
 				});
 
 			});
+			
 		} catch (CoreException e) {
 			e.printStackTrace();
 			emitter.error(e);
