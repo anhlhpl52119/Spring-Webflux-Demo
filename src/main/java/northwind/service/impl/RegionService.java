@@ -29,31 +29,6 @@ public class RegionService implements IRegionsService {
 	@Autowired
 	ReactiveHttpClient httpClient;
 	
-
-	/*public Mono<Regions> getRegionID(Integer RegionID) {
-		Map<String, String> headers = new HashMap<>();
-		Map<String, String> queryParams = new HashMap<>();
-		queryParams.put("$filter", "RegionID eq '"+RegionID+"'");
-		return Mono.create((emitter)->{
-		try {
-			Mono<ClientResponse> response = httpClient.request(NorthwindUtil.URL,"Customers", HttpMethod.GET, headers, queryParams,null);
-			System.out.println("Non blocking");
-			response.subscribeOn(schedular);
-			response.subscribe((ClientResponse clientResponse)->{
-				clientResponse.bodyToMono(String.class).subscribe((json) -> {
-					Regions regions = RegionsExtractor.extractRegions(json);
-					emitter.success(regions);
-				});
-
-			});
-		} catch (CoreException e) {
-			e.printStackTrace();
-			emitter.error(e);
-		}
-		});
-    }*/
-
-
 	public Mono<Regions> getRegionID(int RegionID) {
 		Map<String, String> headers = new HashMap<>();
 		Map<String, String> queryParams = new HashMap<>();
