@@ -52,7 +52,6 @@ public class RegionService implements IRegionsService {
 		});
 	}
 
-//List
 	@Override
 	public Mono<List<Integer>> getRegionsIds() {
 		Map<String, String> headers = new HashMap<>();
