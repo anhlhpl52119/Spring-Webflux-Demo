@@ -12,20 +12,17 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import java.time.Duration;
 
-// import javax.swing.plaf.synth.Region;
-
-
 @RestController
 public class RegionsController {
-    
+
     @Autowired
     private RegionIdsCache regionIdsCache;
 
     @Autowired
     private IRegionsService regionsService;
 
-    @RequestMapping( value = "/region/{RegionID}",method = RequestMethod.GET)
-    public Mono<Regions> getRegionID(@PathVariable("RegionID") int RegionID){
+    @RequestMapping(value = "/region/{RegionID}", method = RequestMethod.GET)
+    public Mono<Regions> getRegionID(@PathVariable("RegionID") int RegionID) {
         return regionsService.getRegionID(RegionID);
     }
 
@@ -36,10 +33,10 @@ public class RegionsController {
                 .flatMap(RegionID -> regionsService.getRegionID(RegionID))
                 .map(region -> {
                     ServerSentEvent<Regions> sseRegion = ServerSentEvent.<Regions>builder()
-                        .id(String.valueOf(region.getRegionID()))
-                        .event("region-stream-event")
-                        .data(region)
-                        .build();
+                            .id(String.valueOf(region.getRegionID()))
+                            .event("region-stream-event")
+                            .data(region)
+                            .build();
                     return sseRegion;
 
                 });

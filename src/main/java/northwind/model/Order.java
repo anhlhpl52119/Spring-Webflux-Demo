@@ -23,12 +23,11 @@ public class Order {
 	private LocalDateTime requiredDate;
 
 	private double shippingFee;
-	
+
 	private double taxes;
 
 	private String paymentType;
 
 	private List<OrderItems> orderItems;
 
-	
 }
