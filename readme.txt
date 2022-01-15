@@ -7,3 +7,5 @@ http://localhost:8080/swagger-ui.html
 
 http://localhost:8080/order-stream
 
+start with
+mvn spring-boot:run
