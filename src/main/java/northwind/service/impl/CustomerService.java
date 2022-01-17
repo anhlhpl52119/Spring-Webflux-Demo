@@ -28,6 +28,7 @@ public class CustomerService implements ICustomerService {
 	
 	public Mono<Customer> getCustomer(String customerId) {
 		Map<String, String> headers = new HashMap<>();
+		System.out.println("addc");
 		Map<String, String> queryParams = new HashMap<>();
 		queryParams.put("$filter", "CustomerID eq '"+customerId+"'");
 		return Mono.create((emitter)->{
