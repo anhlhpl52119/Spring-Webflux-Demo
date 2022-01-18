@@ -31,6 +31,7 @@ public class RegionsExtractor {
 		return null;
 	}
 
+
 	public static List<Integer> extractRegionsIds(String jsonString) {
 		JsonNode parent;
 		try {
