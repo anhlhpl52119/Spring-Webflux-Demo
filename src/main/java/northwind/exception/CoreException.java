@@ -18,4 +18,5 @@ public class CoreException extends Exception {
     public int getStatusCode() {
         return statusCode;
     }
+    
 }
