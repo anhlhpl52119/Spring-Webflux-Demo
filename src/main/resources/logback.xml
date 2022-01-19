@@ -9,6 +9,7 @@
             </pattern>
         </encoder>
     </appender>
+    
     <logger name="org.springframework" level="warn" />
     <logger name="reactor.netty" level="warn" />
     <logger name="org.hibernate" level="warn" />
