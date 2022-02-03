@@ -25,7 +25,7 @@ public class OrderController {
     public Mono<Order> getOrder(@PathVariable("orderId") int orderId) {
         return orderService.getOrder(orderId);
     }
-
+//this using mapping handling
     @GetMapping(path = "/order-stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<ServerSentEvent<Order>> getOrderStream() {
         Flux<ServerSentEvent<Order>> sseOrderFlux = Flux.fromIterable(orderIdsCache.getOrderIds())
