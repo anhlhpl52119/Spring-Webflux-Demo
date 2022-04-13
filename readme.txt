@@ -6,7 +6,5 @@ Swagger UI
 
 http://localhost:8080/order-stream
 
-start with
 mvn spring-boot:run
-update
 
